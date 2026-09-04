@@ -8,10 +8,20 @@
   "dependencyDashboard": true,
   "semanticCommits": "enabled",
   "minimumReleaseAge": "3 days",
-  "rebaseWhen": "auto",
+  "rebaseWhen": "behind-base-branch",
   "platformAutomerge": true,
   "prHourlyLimit": 2,
   "prConcurrentLimit": 10,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^renovate\\.json$/"],
+      "matchStrings": ["github>tjwise99/wise-renovate#(?<currentValue>v[0-9.]+)"],
+      "depNameTemplate": "tjwise99/wise-renovate",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver"
+    }
+  ],
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
