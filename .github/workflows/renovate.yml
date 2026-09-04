@@ -1,0 +1,45 @@
+name: renovate
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: Renovate dry-run mode (none runs for real)
+        type: choice
+        options:
+          - none
+          - extract
+          - lookup
+          - full
+        default: none
+
+permissions: {}
+
+jobs:
+  renovate:
+    name: renovate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          client-id: ${{ secrets.RENOVATE_APP_ID }}
+          private-key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+          owner: tjwise99
+
+      - name: Carry the dispatch dry-run mode into the Renovate step
+        if: github.event_name == 'workflow_dispatch' && inputs.dryRun != 'none'
+        run: echo "RENOVATE_DRY_RUN=${{ inputs.dryRun }}" >> "$GITHUB_ENV"
+
+      - uses: renovatebot/github-action@39b914146caeff8cd512e61c8992f1d5913af85c # v46.2.5
+        with:
+          configurationFile: config.json
+          token: ${{ steps.app-token.outputs.token }}
+        env:
+          LOG_LEVEL: info
