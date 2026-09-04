@@ -34,7 +34,7 @@ jobs:
           owner: tjwise99
 
       - name: Carry the dispatch dry-run mode into the Renovate step
-        if: inputs.dryRun != 'none'
+        if: github.event_name == 'workflow_dispatch' && inputs.dryRun != 'none'
         run: echo "RENOVATE_DRY_RUN=${{ inputs.dryRun }}" >> "$GITHUB_ENV"
 
       - uses: renovatebot/github-action@39b914146caeff8cd512e61c8992f1d5913af85c # v46.2.5
