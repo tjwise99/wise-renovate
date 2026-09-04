@@ -26,7 +26,7 @@ extends.
 | Minimum release age | 3 days across ecosystems |
 | Dependency Dashboard | enabled |
 | Digest pinning | GitHub Actions and Docker image references are pinned to digests (`helpers:pinGitHubActionDigests`, `docker:pinDigests`) |
-| Grouping | `node` — the node-version and Docker datasources for the `node` package are grouped into one PR, so `engines.node`, `setup-node`, and a Dockerfile base image move together |
+| Grouping | `node` — the node-version and Docker datasources for the `node` package, plus the github-releases datasource for `actions/node-versions` (how the `github-actions` manager reports `setup-node`'s `with: node-version`), are grouped into one PR, so `engines.node`, `setup-node`, and a Dockerfile base image move together |
 | Base | [`config:recommended`](https://docs.renovatebot.com/presets-config/#configrecommended) |
 
 Every project extending this preset inherits this policy; a project overrides a setting locally
