@@ -14,6 +14,10 @@ extends.
   access to every repository it's installed on.** The App is created and installed by the account
   operating this runner, scoped per-repository, and its installation tokens expire after one hour
   ([docs.renovatebot.com/modules/platform/github/](https://docs.renovatebot.com/modules/platform/github/)).
+- **`config.json` sets no `gitAuthor`.** Running as a GitHub App already attributes commits to the
+  App's own bot identity once authenticated via its installation token
+  ([docs.renovatebot.com/modules/platform/github/](https://docs.renovatebot.com/modules/platform/github/)),
+  so an explicit `gitAuthor` override is unneeded, not an oversight.
 - **The cutover is reversible.** The GitHub-hosted Mend Renovate app reads the identical
   `renovate.json` / preset configuration a consuming repository already carries, so returning to the
   hosted app is a platform change, not a configuration rewrite.
