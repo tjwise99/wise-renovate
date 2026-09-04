@@ -1,0 +1,7 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "platform": "github",
+  "onboarding": false,
+  "requireConfig": "required",
+  "repositories": ["tjwise99/WiseKiosk", "tjwise99/wise-renovate"]
+}
